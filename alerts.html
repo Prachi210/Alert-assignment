@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Alerts</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ui-grid.info/release/ui-grid.js"></script>
+  <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
+  <script type="text/javascript" src="..\alert-assignment\alerts.js"></script>
+  <style type="text/css">
+.container {
+    width: 1400px;
+}
+.myGrid {
+
+width: 600px;
+
+height: 600px;
+
+}
+* {
+  box-sizing: border-box;
+}
+
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+  height: 1000px; 
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.nav-tabs.nav-justified>.active>a, .nav-tabs.nav-justified>.active>a:focus, .nav-tabs.nav-justified>.active>a:hover {
+    border: 1px solid #ddd;
+    background-color: #007FFF;
+	color : white;
+}
+</style>
+
+</head>
+<body ng-app="alertsApp">
+
+<h2 style="background-color: #007FFF; color:white;">Alerts</h2>
+
+
+<div class="container" ng-controller="alertsCtrl">
+  <ul class="nav nav-tabs nav-justified" role="tablist">
+    <li><a data-toggle="tab" href="#Immunization">Immunization Alerts</a></li>
+    <li><a data-toggle="tab" href="#Lab">Lab Alerts</a></li>
+    <li><a data-toggle="tab" href="#DI">DI  Alerts</a></li>
+	<li><a data-toggle="tab" href="#Procedure">Procedure  Alerts</a></li>
+	<li ><a data-toggle="tab" href="#RX">RX Specific  Alerts</a></li>
+    <li><a data-toggle="tab" href="#DX">DX Specific  Alerts</a></li>
+    <li><a data-toggle="tab" href="#Patient">Patient Specific  Alerts</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="Immunization" class="tab-pane fade">
+      <h3>Immunization Alerts</h3>
+    
+    </div>
+    <div id="Lab" class="tab-pane fade">
+      <h3>Lab Alerts</h3>
+     
+    </div>
+    <div id="DI" class="tab-pane fade">
+      <h3>DI Alerts</h3>
+      
+    </div>
+	<div id="Procedure" class="tab-pane fade">
+      <h3>Procedure Alerts</h3>
+      
+    </div>
+	<div id="RX" class="tab-pane fade" data-ng-init="getTestData();">
+      			<div class="column" style="background-color: #f7f7f7;">
+				<div class="row">
+					<h3 style="color: #007FFF;margin-left: 10px;">RX Specific Alerts</h3>
+					<label style="color: black; font-weight: bold;margin-left: 10px;">Find</label> <input
+						 ng-model = "alertDtls.findData"type="text" maxlength="25" />
+
+					<button type="button" type="button" class="btn btn-secondary"
+						ng-click = "deleteName();" style="float: right;">Delete</button>
+					<button type="button" class="btn btn-secondary"
+						style="float: right;">New</button>
+				</div>
+				</br>
+				</br>
+								<div ui-grid="nameListGridData" ui-grid-resize-columns
+					ui-grid-auto-resize ui-grid-selection ui-grid-pinning
+					ui-grid-move-columns ui-grid-pagination ui-grid-exporter
+					class="myGrid"></div>
+
+				</div>
+			
+			<div class="column" style="background-color: #dbefff;">
+				<div class="row">
+					<label style="color: black; font-weight: bold;margin-left: 10px;">Name</label> <input
+						type="text" maxlength="25" ng-model = "alertDtls.name" />
+					<button class="btn btn-secondary" style="float: right;">Select</button>
+				</div>
+				</br>
+				<div class="row">
+					<label style="color: black; font-weight: bold;margin-left: 10px;">Description</label>
+					<textarea type="text" maxlength="25" ng-model = "alertDtls.description" ></textarea>
+				</div>
+				</br>
+				<div class="row">
+					<label style="color: black; font-weight: bold;margin-left: 10px;">Order set</label> <select  ng-options="x for x in refs"
+						type="text" maxlength="25" ng-model = "alertDtls.ref"></select>
+				</div>
+				</br> </br> <input type="checkbox" id="apply" name="apply" value="apply">
+				<label for="apply" style="color: black; font-weight: bold;">
+					Apply Alert to all the Medications in same the class</label><br> <br />
+				<div class="row">
+					<button class="btn btn-secondary" style="float: right;" data-ng-click = "pushData(alertDtls)">New</button>
+				</div>
+				
+					</br>
+				</br>
+					<div ui-grid="testListGridData" ui-grid-resize-columns
+					ui-grid-auto-resize ui-grid-pinning
+					ui-grid-move-columns  ui-grid-exporter
+					></div>
+					<div class = "row">
+					</br>
+				</br>
+					<button type="button" type="button" class="btn btn-secondary"
+						style="float: right;" >Cancel</button>
+					<button type="button" class="btn btn-secondary"
+						style="float: right;" ng-click= "close();">OK</button>
+					</div>
+			</div>
+    </div>
+	<div id="DX" class="tab-pane fade">
+      <h3>DX Specific Alerts</h3>
+      
+    </div>
+	<div id="Patient" class="tab-pane fade">
+      <h3>Patient Specific Alerts</h3>
+      
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
